@@ -1,0 +1,105 @@
+[
+  {
+    "name": "wa_clinic_rates",
+    "description": "Washington Apple Health (Medicaid, not Medicare) FQHC (federally qualified health center) and rural health clinic (RHC) ENCOUNTER RATES, PER CLINIC (FQHC: per clinic location and category of service such as medical, dental, mental health, substance use disorder, maternity support; RHC: per clinic NPI), each with its own start date, from the Washington State Health Care Authority (HCA). Quarterly workbooks, newest by default, earlier quarters via period. Not a per-procedure fee schedule. Filter by clinic or health-centre name fragment, 10-digit NPI, category, program, or rate start date. An unmatched filter returns the nearest names or the valid values.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "program": {
+          "type": "string",
+          "enum": [
+            "FQHC",
+            "RHC",
+            "all"
+          ],
+          "description": "FQHC, RHC, or \"all\" (default)."
+        },
+        "provider": {
+          "type": "string",
+          "description": "Clinic or health-centre name fragment, e.g. \"Sea Mar\" or \"Arbor Health\" (provider name and clinic location)."
+        },
+        "npi": {
+          "type": "string",
+          "description": "10-digit NPI, as a string."
+        },
+        "category": {
+          "type": "string",
+          "description": "FQHC category of service fragment, e.g. \"dental\", \"medical\", \"mental health\", \"substance use\", \"maternity\"."
+        },
+        "period": {
+          "type": "string",
+          "description": "\"latest\" (default), \"all\", or the start of an HCA quarter such as \"2026-07-01\"."
+        },
+        "rate_effective_after": {
+          "type": "string",
+          "description": "Only rows whose own rate start date is after this date (YYYY-MM-DD), e.g. \"2026-05-01\" to find recent rate changes."
+        },
+        "limit": {
+          "type": "number",
+          "description": "Max rows (default 25, max 200). Summaries cover every match."
+        }
+      }
+    }
+  },
+  {
+    "name": "wa_enhancement_rates",
+    "description": "Washington Apple Health managed-care ENHANCEMENT RATES for FQHC and RHC clinics, per NPI and type (medical or mental health), from the Washington State Health Care Authority (HCA): the monthly amount HCA pays a clinic per managed-care client, on top of the plan's payment (per HCA's FQHC billing guide), with HCA's own date or note for the rate change. About 40 clinics. Not an encounter rate (use wa_clinic_rates). Filter by name fragment, 10-digit NPI, or type.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "provider": {
+          "type": "string",
+          "description": "Clinic name fragment, e.g. \"Yakima\"."
+        },
+        "npi": {
+          "type": "string",
+          "description": "10-digit NPI, as a string."
+        },
+        "type": {
+          "type": "string",
+          "description": "Enhancement type fragment: \"medical\" or \"mental health\"."
+        },
+        "period": {
+          "type": "string",
+          "description": "\"latest\" (default), \"all\", or the start of an HCA quarter such as \"2026-04-01\"."
+        },
+        "limit": {
+          "type": "number",
+          "description": "Max rows (default 25, max 200)."
+        }
+      }
+    }
+  },
+  {
+    "name": "wa_rate_summary",
+    "description": "Washington Apple Health FQHC and RHC encounter-rate workbooks at a glance (Washington State Health Care Authority): which quarterly publications are held and when HCA updated each, how many rows and NPIs, min/median/max/mean encounter rate, optionally grouped by FQHC category of service, rate start date or quarter. Also states what is not covered.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "program": {
+          "type": "string",
+          "enum": [
+            "FQHC",
+            "RHC",
+            "all"
+          ],
+          "description": "One program, or omit for both."
+        },
+        "period": {
+          "type": "string",
+          "description": "\"latest\" (default), \"all\", or the start of an HCA quarter."
+        },
+        "group_by": {
+          "type": "string",
+          "enum": [
+            "none",
+            "category",
+            "rate_effective",
+            "period"
+          ],
+          "description": "Group the rate statistics (default none)."
+        }
+      }
+    }
+  }
+]

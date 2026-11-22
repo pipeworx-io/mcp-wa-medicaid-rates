@@ -1,0 +1,18 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.pipeworx-io/wa-medicaid-rates",
+  "title": "Wa Medicaid Rates",
+  "description": "Washington Apple Health (Medicaid) FQHC and rural health clinic (RHC) encounter rates and…",
+  "version": "0.1.0",
+  "websiteUrl": "https://pipeworx.io/packs/wa-medicaid-rates",
+  "repository": {
+    "url": "https://github.com/pipeworx-io/mcp-wa-medicaid-rates",
+    "source": "github"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://gateway.pipeworx.io/wa-medicaid-rates/mcp"
+    }
+  ]
+}
